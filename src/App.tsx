@@ -1,34 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { Column as ColumnType, Task, Task as TaskType } from "./types"
+import { Column } from "./components/Column";
+import { DndContext, DragEndEvent } from "@dnd-kit/core";
+
+const COLUMNS: ColumnType[] = [
+  { id: 'column-1', title: 'To do' },
+  { id: 'column-2', title: 'In progress' },
+  { id: 'column-3', title: 'Done' },
+];
+
+const INITIAL_TASKS: TaskType[] = [
+  {
+    id: 'task-1',
+    title: 'Learn React',
+    description: 'Learn React',
+    status: 'column-1',
+  },
+  {
+    id: 'task-2',
+    title: 'Learn TypeScript',
+    description: 'Learn TypeScript',
+    status: 'column-1',
+  },
+  {
+    id: 'task-3',
+    title: 'Learn DnD',
+    description: 'Learn DnD',
+    status: 'column-1',
+  }
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [tasks, setTasks] = useState<TaskType[]>(INITIAL_TASKS);
+
+  const handleDragEng = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (!over) return;
+
+    const taskId = active.id as string;
+    const newStatus = over.id as TaskType['status'];
+
+    setTasks(() =>
+      tasks.map((task) => task.id === taskId ? { ...task, status: newStatus } : task)
+    );
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="p-4">
+      <div className="flex gap-8">
+        <DndContext onDragEnd={handleDragEng}>
+          {COLUMNS.map((column) => (
+            <Column key={column.id} column={column} tasks={tasks.filter(task => task.status === column.id)} />
+          ))}
+        </DndContext>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
