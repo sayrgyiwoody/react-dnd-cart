@@ -11,7 +11,7 @@ type CartListProps = {
 const CartList: React.FC<CartListProps> = ({list}) => {
 
     const {setNodeRef} =useDroppable({
-         id: 'CartList'
+         id: 'cart-list'
     });
 
 

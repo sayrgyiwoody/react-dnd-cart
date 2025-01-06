@@ -27,15 +27,16 @@ const Items: TItem[] = [
 
 const DndCart = () => {
 
-    const [ cartList , setCartList ] = useState<TItem[]>(Items);
+    const [ cartList , setCartList ] = useState<TItem[]>([]);
 
     const handleDragEnd = (event:DragEndEvent) => {
         const { active, over } = event;
-        if (!over) return;
+        if (!over || over?.id !== 'cart-list') return;
         const activeId = active.id as string;
-        const item = Items.find((item) => item.id === activeId);
-
-        console.log(item);
+        const newItem = Items.find((item) => item.id === activeId);
+        const temp = [...cartList];
+        temp.push(newItem);
+        setCartList(temp);
     
     }
 
