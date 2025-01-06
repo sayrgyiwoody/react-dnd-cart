@@ -1,5 +1,5 @@
 import { useDraggable } from "@dnd-kit/core";
-import { Task as TaskType } from "../types";
+import { Task as TaskType } from "../../types";
 
 type TaskCardProps = {
     task: TaskType;
@@ -8,7 +8,7 @@ type TaskCardProps = {
 export const TaskCard = ({ task }: TaskCardProps) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
         id: task.id
-    })
+    });
 
     const style = transform ? {
         transform: `translate(${transform.x}px,${transform.y}px)`
