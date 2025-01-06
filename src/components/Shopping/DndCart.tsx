@@ -64,7 +64,11 @@ const DndCart = () => {
             // Add the new item to the list
             setCartList((prev) => [...prev, newItem]);
         }
-    
+    }
+
+    const removeItem = (id: string) => {
+        const newCartList = cartList.filter((item) => item.id !== id);
+        setCartList(newCartList);
     }
 
   return (
@@ -75,7 +79,7 @@ const DndCart = () => {
                       <CardContainer items={Items} />
                   </div>
                   <div className="w-2/6">
-                      <CartList list={cartList} />
+                      <CartList removeItem={removeItem} list={cartList} />
                   </div>
               </div>
           </DndContext>

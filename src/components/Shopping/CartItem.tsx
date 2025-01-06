@@ -3,9 +3,10 @@ import { TItem } from "../../types"
 
 type CartItemProps = {
     item: TItem;
+    removeItem: (id: string) => void;
 }
 
-export const CartItem: React.FC<CartItemProps> = ({ item }) => {
+export const CartItem: React.FC<CartItemProps> = ({ item,removeItem }) => {
 
     return (
         <div
@@ -23,7 +24,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
             </div>
             <div className="flex justify-between items-center">
                 <div className="text-lg font-semibold text-white">${item.price}</div>
-                <button className="px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-md hover:bg-blue-700">Add to Cart</button>
+                <button onClick={()=>removeItem(item.id)} className="px-4 py-2 bg-red-500 text-white text-sm font-medium rounded-md hover:bg-red-700">Remove Item</button>
             </div>
         </div>
     )

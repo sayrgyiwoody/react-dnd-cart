@@ -35,7 +35,7 @@ export const ShoppingCard:React.FC<ShoppingCardProps> = ({item}) => {
           </div>
           <div className="flex justify-between items-center">
               <div className="text-lg font-semibold text-white">${item.price}</div>
-              <button className="px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-md hover:bg-blue-700">Add to Cart</button>
+              <button className="px-4 py-2  text-white text-sm font-medium rounded-md ">Drag to add</button>
           </div>
       </div>
   )

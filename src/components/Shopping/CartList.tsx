@@ -5,9 +5,10 @@ import { CartItem } from "./CartItem";
 
 type CartListProps = {
     list: TItem[];
+    removeItem : (id: string) => void;
 }
 
-const CartList: React.FC<CartListProps> = ({list}) => {
+const CartList: React.FC<CartListProps> = ({list,removeItem}) => {
 
     const {setNodeRef} =useDroppable({
          id: 'cart-list'
@@ -19,7 +20,7 @@ const CartList: React.FC<CartListProps> = ({list}) => {
           <h2 className=" font-semibold text-2xl mb-3">Cart List</h2>
           <div className="space-y-2">
               {list && list.map((item) => (
-                  <CartItem key={item.id} item={item} />
+                  <CartItem removeItem={removeItem} key={item.id} item={item} />
               ))}
           </div>
     </div>
