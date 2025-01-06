@@ -6,37 +6,64 @@ import { useState } from "react";
 
 const Items: TItem[] = [
     {
-        id: 'task-1',
+        id: 'item-1',
+        name: 'Nuke',
+        description: 'This is very good shoes',
+        price: 200
+    },
+    {
+        id: 'item-2',
+        name: 'Aboibs',
+        description: 'International brand very good',
+        price: 200
+    },
+    {
+        id: 'item-3',
+        name: 'Pamu',
+        description: 'a very nice shirt',
+        price: 200
+    },
+    {
+        id: 'item-4',
         name: 'Learn React',
         description: 'Learn React',
         price: 200
     },
     {
-        id: 'task-2',
+        id: 'item-5',
         name: 'Learn TypeScript',
         description: 'Learn TypeScript',
         price: 200
     },
     {
-        id: 'task-3',
+        id: 'item-6',
         name: 'Learn DnD',
         description: 'Learn DnD',
         price: 200
-    }
+    },
 ];
 
 const DndCart = () => {
 
     const [ cartList , setCartList ] = useState<TItem[]>([]);
 
+
     const handleDragEnd = (event:DragEndEvent) => {
         const { active, over } = event;
         if (!over || over?.id !== 'cart-list') return;
         const activeId = active.id as string;
-        const newItem = Items.find((item) => item.id === activeId);
-        const temp = [...cartList];
-        temp.push(newItem);
-        setCartList(temp);
+        const isAlreadyInCart = cartList.findIndex((item) => item.id === activeId);
+        if (isAlreadyInCart !== -1) return;
+
+        // Find the dragged item
+        const draggedItem = Items.find((item) => item.id === activeId);
+
+        if (draggedItem) {
+            // Create a copy of the item
+            const newItem: TItem = draggedItem;
+            // Add the new item to the list
+            setCartList((prev) => [...prev, newItem]);
+        }
     
     }
 

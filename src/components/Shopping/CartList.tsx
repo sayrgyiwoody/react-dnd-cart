@@ -1,7 +1,6 @@
 import { useDroppable } from "@dnd-kit/core"
 import { TItem } from "../../types";
 import React from "react";
-import { ShoppingCard } from "./ShoppingCard";
 import { CartItem } from "./CartItem";
 
 type CartListProps = {
